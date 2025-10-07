@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare the area of a polygon with those of its excirlce and incircle</title>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style type="text/css">
+        #plot{
+            width:800px;
+            height:500px;
+            border: 2px solid brown;
+            background-color:bisque;     
+            padding:10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Compare the area of a polygon with those of its excirlce and incircle</h2>
+    <div id="plot"></div>
+
+    <script>
+        // 计算多边形的面积
+        function polygonArea(n = 4, a) {
+            // 计算正多边形的内角
+            let theta = (2.0 * Math.PI) / n;
+            //计算三角形的高
+            let h = a / 2 / Math.tan(theta / 2);
+            return (n * h * a) / 2.0;
+        }
+
+        function excircleArea(n = 4, a) {
+            // 计算正多边形的内角
+            let theta = (2.0 * Math.PI) / n;
+            //计算三角形的高
+            let h = a / 2 / Math.tan(theta / 2);
+            let r = Math.sqrt(h ** 2 + (a / 2) ** 2);
+            return Math.PI * r ** 2;
+        }
+        function incircleArea(n = 4, a) {
+            // 计算正多边形的内角
+            let theta = (2.0 * Math.PI) / n;
+            //计算三角形的高
+            let r = a / 2 / Math.tan(theta / 2);
+            return Math.PI * r ** 2;
+        }
+
+        let s = 10;
+        let nlist = [];
+        let elist = [];
+        for (let n = 40; n < 100000; n *= 2) {
+            a = polygonArea(n, s);
+            ao = excircleArea(n, s);
+            ai = incircleArea(n, s);
+            let err = 0.5 * (ao + ai) - a;
+            nlist = [...nlist, n];
+            elist = [...elist, err];
+        }
+
+        // console.log(nlist);
+        // console.log(elist);
+        let trace = { x: nlist, y: elist, type: "scatter", mode: "line", name: "Errorness" };
+        let layout = {
+            title: `Errorness by 0.5(Aex+Ain)-Apoly, Here, s=${s}`,
+            xaxis: { type: "log", title: "Number of sides n" },
+            yaxis: { title: "Errorness" },
+        };
+        Plotly.newPlot("plot",[trace],layout);
+
+    </script>
+
+</body>
+
+</html>
