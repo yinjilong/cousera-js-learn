@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate bmi</title>
+    <style type="text/css">
+    body {background-color: #ccc;}
+    p {
+        font-size: 20px; 
+        color: #000000;
+    }
+
+    span.bmiLight{
+        color:aqua;
+        font-size:15px;
+    }
+    span.bmiNormal{
+        color:forestgreen;
+        font-size:20px;
+    }
+    span.bmiHeavy{
+        color:blue;
+        font-size:30px;        
+    }
+    span.bmiFat{
+        color:red;
+        font-size:40px;        
+    }
+    span.bmiOverFat{        
+        color:purple;
+        font-size:50px;
+    }
+
+    </style>
+</head>
+<body>
+    <p>height: <span id="height"></span>m</p>
+    <p>weight:<span id="weight"></span>kg</p>
+    <p>BMI:  <span id="bmi"></span></p>
+    <p>Judgement:  <span id="judge"></span></p>
+
+    <script>
+        'use strict';
+        let height = parseFloat(prompt('Please input the height(m):')); 
+        let weight = parseFloat(prompt('Please input the weight(kg):'));
+        let bmi = weight/height**2;
+        let judge=null;
+        let bmiClass =null;
+        if (bmi < 18.5) {
+            judge="Over light";
+            bmiClass = "bmiLight";
+        } else if (bmi < 25) {
+            judge="Normal";
+            bmiClass = "bmiNormal";
+        } else if (bmi < 28) {
+            judge="Heavy";
+            bmiClass = "bmiHeavy";
+        } else if (bmi < 32) {
+            judge="Fat";
+            bmiClass = "bmiFat";
+        } else {
+            judge="<bold>Over Fat</bold>";
+            bmiClass="bmiOverFat";
+        }
+
+        let heightNode = document.getElementById("height");
+        let weightNode = document.getElementById("weight");
+        let bmiNode = document.getElementById("bmi");
+        let judgeNode = document.getElementById("judge");
+        heightNode.innerHTML = height;
+        weightNode.innerHTML = weight;
+        bmiNode.innerHTML = bmi;
+        judgeNode.innerHTML = judge;
+        judgeNode.classList.add(bmiClass);
+    </script>
+    
+</body>
+</html>
