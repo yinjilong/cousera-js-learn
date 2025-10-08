@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Closure</title>
+    <style>
+        nav ul {
+            display: inline-block;
+            justify-content: space-between;
+        }
+
+        nav ul li {
+            display: inline-block;
+        }
+
+        ._code {
+            width: 800px;
+            font-family: "Fira Code", "JetBrains Mono", Consolas, "Courier New", monospace;
+            font-size: large;
+            color: white;
+            background-color: rgb(0, 0, 0);
+            border-radius: 6px;
+            margin: 10px;
+            padding: 10px 10px 10px 50px;
+            white-space: pre;
+        }
+
+        ._result {
+            width: 800px;
+            color: blue;
+            border-radius: 2px;
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <h1>Example codes for Closure function:
+            <ul>
+                <li><a href="#lazy_sum_block">lazy_sum</a></li>
+                <li><a href="#count1_block">count1</a></li>
+                <li><a href="#count2_block">count2</a></li>
+                <li><a href="#count3_block">count3</a></li>
+                <li><a href="#count4_block">count4</a></li>
+                <li><a href="#count5_block">count5</a></li>
+            </ul>
+        </h1>
+    </nav>
+
+    <div class="code_block" id="lazy_sum_block">
+        <h2>lazy_sum</h2>
+        <textarea type="text" class="_code" id="lazy_sum">
+        </textarea>
+        <br>
+        <button onclick="run_code(this)">Run code</button>
+        <button onclick="clear_result(this)">Clear result</button>
+        <p class="_result"></p>
+    </div>
+
+    <div class="code_block" id="count1_block">
+        <h2>count1</h2>
+        <textarea type="text" class="_code" id="count1">
+        </textarea>
+        <br>
+        <button onclick="run_code(this)">Run code</button>
+        <button onclick="clear_result(this)">Clear result</button>
+        <p class="_result"></p>
+    </div>
+
+    <div class="code_block" id="count2_block">
+        <h2>count2</h2>
+        <textarea type="text" class="_code" id="count2">
+        </textarea>
+        <br>
+        <button onclick="run_code(this)">Run code</button>
+        <button onclick="clear_result(this)">Clear result</button>
+        <p class="_result"></p>
+    </div>
+
+    <div class="code_block" id="count3_block">
+        <h2>count3</h2>
+        <textarea type="text" class="_code" id="count3">
+        </textarea>
+        <br>
+        <button onclick="run_code(this)">Run code</button>
+        <button onclick="clear_result(this)">Clear result</button>
+        <p class="_result"></p>
+    </div>
+
+
+    <div class="code_block" id="count4_block">
+        <h2>count4</h2>
+        <textarea type="text" class="_code" id="count4">
+        </textarea>
+        <br>
+        <button onclick="run_code(this)">Run code</button>
+        <button onclick="clear_result(this)">Clear result</button>
+        <p class="_result"></p>
+    </div>
+
+    <div class="code_block" id="count5_block">
+        <h2>count5</h2>
+        <textarea type="text" class="_code" id="count5">
+        </textarea>
+        <br>
+        <button onclick="run_code(this)">Run code</button>
+        <button onclick="clear_result(this)">Clear result</button>
+        <p class="_result"></p>
+    </div>
+
+
+    <script>
+        "use strict";
+        let _codes=[`
+//lazy_sum
+
+"use strict";        
+let arr, r;
+
+arr=[1, 2, 3, 4, 5];
+function sum(arr){
+    return arr.reduce(function(x,y){return x+y},0);
+}
+r=sum(arr);
+console.log(r);
+
+function lazy_sum(arr){
+    let sum=function(){
+        return arr.reduce(function(x,y){
+            return x+y;
+        },0);
+    }
+    return sum;
+}
+
+let f=lazy_sum(arr);
+console.log(f());
+        `,
+    `
+// count1
+
+"use strict";
+let f1,f2,f3;
+let r;
+
+function count1(){
+    let arr=[];
+    for(let i=1;i<=3;i++){
+        arr.push(function(){
+            return i*i;
+        })
+    }
+    return arr;
+}
+r =count1();
+[f1,f2,f3]=r;
+console.log(f1(),f2(),f3());
+    `,
+    //count2
+    `
+// count2
+
+"use strict";
+let f1,f2,f3;
+let r;    
+function count2(){
+    let arr=[];
+    for(var i=1;i<=3;i++){
+        arr.push(function(){
+            return i*i;
+        })
+    }
+    return arr;
+}
+r =count2();
+[f1,f2,f3]=r;
+console.log(f1(),f2(),f3());
+    `, 
+    //count3
+    `
+// count3
+
+"use strict";
+let f1,f2,f3;
+let r;
+    function count3(){
+    let arr=[];
+    for(var i=1;i<=3;i++){
+        arr.push(function(){
+            return i*i;
+        })
+    }    
+    i=100;
+    return arr;    
+}
+r =count3();
+[f1,f2,f3]=r;
+console.log(f1(),f2(),f3());
+    `,
+    // count4
+    `
+// count4
+
+let a=33;
+function count4(){
+    let arr=[];
+    for(let i=1;i<=3;i++){
+        arr.push(function(){
+            return (a-i);
+        })
+    }    
+    return arr;    
+}
+a=20;
+r =count4();
+[f1,f2,f3]=r;
+console.log(f1(),f2(),f3());    
+    `,
+    // count5
+    `
+// count5
+
+function count5() {
+  let arr = [];
+  for (var i = 1; i <= 3; i++) {
+    arr.push((function(j) {
+      return function() { return j*j; };
+    })(i));
+  }
+  return arr;
+}
+
+[f1,f2,f3] = count5();
+console.log(f1(), f2(), f3()); // 1 4 9    
+    `,
+]
+
+        let output = "";
+        const customConsole = {
+            log: (...args) => {
+                output += args.join(" ") + "\n";
+            }
+        };
+
+        function run_code_(code_str, result_node) {
+            // --- run the code safely in a new function scope ---
+            new Function("console", code_str)(customConsole);
+            result_node.innerHTML = output;
+            output = "";
+        }
+
+        // set the rows and cols for the all text areas
+        let code_nodes = document.getElementsByClassName("_code");        
+        for (let k=0;k<code_nodes.length;k++) {
+            let cnode = code_nodes[k];
+            if(k<_codes.length){
+                cnode.value=_codes[k];
+            }
+            cnode.rows = cnode.value.split("\n").length;
+            cnode.cols = cnode.value.split("\n").reduce(function (acc, x) {
+                return acc > x.length ? acc : x.length;
+            }, 0);
+        }
+
+        function run_code(btn) {
+            let p = btn.parentElement;
+            let ta = p.getElementsByClassName("_code")[0];
+            let res = p.getElementsByClassName("_result")[0];
+            let mycode = ta.value;
+            run_code_(mycode, res);
+        }
+
+        function clear_result(btn) {
+            let p = btn.parentElement;
+            let res = p.getElementsByClassName("_result")[0];
+            res.innerHTML = "";
+        }
+
+    </script>
+
+
+</body>
+
+</html>
