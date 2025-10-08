@@ -52,6 +52,7 @@
 
     <div class="code_block" id="lazy_sum_block">
         <h2>lazy_sum</h2>
+        <p>当我们调用lazy_sum()时，返回的并不是求和结果，而是求和函数。调用函数f时，才真正计算求和的结果。</p>
         <textarea type="text" class="_code" id="lazy_sum">
         </textarea>
         <br>
@@ -62,6 +63,10 @@
 
     <div class="code_block" id="count1_block">
         <h2>count1</h2>
+        <p>例子中，每次循环，都创建了一个新的函数，然后，把创建的3个函数都添加到一个Array中返回了。<br>
+            注意到我们循环变量是用的 let，可以得到预期结果。如果像下面的例子中用var 则会出现意想不到的结果。<br>
+            这与let /var 定义变量的作用域不同有关系。
+        </p>
         <textarea type="text" class="_code" id="count1">
         </textarea>
         <br>
@@ -72,6 +77,10 @@
 
     <div class="code_block" id="count2_block">
         <h2>count2</h2>
+        <p>例子中，每次循环，都创建了一个新的函数，然后，把创建的3个函数都添加到一个Array中返回了。<br>
+            注意到我们上一个例子中循环变量是用的 let，可以得到预期结果。本例中如果用var 则会出现意想不到的结果。<br>
+            这与let /var 定义变量的作用域不同有关系。
+        </p>
         <textarea type="text" class="_code" id="count2">
         </textarea>
         <br>
@@ -82,6 +91,12 @@
 
     <div class="code_block" id="count3_block">
         <h2>count3</h2>
+        <p>例子中，用var 则会出现意想不到的结果。<br>
+            这与let /var 定义变量的作用域不同有关系。<br>
+            为了验证这一点，我们在循环结束后将i重新赋值未100，可以发现得到结果未10000 10000 10000,<br>
+            这说明两点，（1）初始绑定到函数arr的参数仅是地址，最终评价要到之后才进行。<br>
+            (2)var的变量作用域及于函数定义范围之内，而let的作用域仅仅在想定的语句块中。
+        </p>        
         <textarea type="text" class="_code" id="count3">
         </textarea>
         <br>
@@ -93,6 +108,7 @@
 
     <div class="code_block" id="count4_block">
         <h2>count4</h2>
+        <p>这里我们用let代替的话就不会有问题了。</p>
         <textarea type="text" class="_code" id="count4">
         </textarea>
         <br>
@@ -204,6 +220,10 @@ console.log(f1(),f2(),f3());
     `
 // count4
 
+"use strict";
+
+let f1,f2,f3;
+let r;
 let a=33;
 function count4(){
     let arr=[];
@@ -222,6 +242,10 @@ console.log(f1(),f2(),f3());
     // count5
     `
 // count5
+
+"use strict";
+
+let f1,f2,f3;
 
 function count5() {
   let arr = [];
@@ -247,7 +271,11 @@ console.log(f1(), f2(), f3()); // 1 4 9
 
         function run_code_(code_str, result_node) {
             // --- run the code safely in a new function scope ---
+             try {
             new Function("console", code_str)(customConsole);
+             }catch(err){
+                output += "Error:"+err.message+"\n";
+             }
             result_node.innerHTML = output;
             output = "";
         }
