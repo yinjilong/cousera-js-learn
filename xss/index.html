@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #out1 {
+            width: 350px;
+            height: 100px;
+            background-color: beige;
+            padding: 10px;
+            margin: 10px;
+            border: 2px solid black;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>展示XSS攻击</h1>
+    <fieldset>
+        <label>请输入任意文字：</label><br>
+        <textarea id="ta1" rows="10" cols="50">
+<b>hello </b><br>
+<script>alert("hi")</script><br>
+<b>world</b><br>
+</textarea> <br>
+        <button onclick="showMe()">显示我</button>
+
+        <span>
+            <input type="radio" id="selectinnerHtml" name="drone" value="selectinnerHtml" checked />
+            <label for="selectinnerHtml">innerHtml</label>
+        </span>
+
+        <span>
+            <input type="radio" id="selectTextContent" name="drone" value="selectTextContent" />
+            <label for="selectTextContent">textContent</label>
+        </span>
+        <br>
+        下面是一个p标签，将会把文本框的内容作为innerHTML显示<br>
+        <p id="out1"></p>
+    </fieldset>
+
+    <script>
+        function showMe() {
+            //
+            ta1Node = document.getElementById("ta1");
+            txt = ta1Node.value;
+            out1Node = document.getElementById("out1");
+            // get which radio is checked
+            const selected = document.querySelector('input[name="drone"]:checked').value;
+            if (selected === "selectinnerHtml") {
+                out1Node.innerHTML = txt;
+            } else if (selected == "selectTextContent") {
+                out1Node.textContent = txt;
+            }
+
+        }
+    </script>
+
+</body>
+
+</html>
